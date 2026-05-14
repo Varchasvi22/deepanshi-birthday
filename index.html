@@ -1,0 +1,646 @@
+# Deepanshi Magical Birthday Website
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Deepanshi ✨</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      background: linear-gradient(-45deg, #ffb6c1, #ffd6e8, #d7c3ff, #b8f2ff);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: 1s ease;
+      padding: 20px;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.1);
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-120px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .flower-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 30px;
+    }
+
+    .flower {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bloom 2.5s ease forwards;
+      transform: scale(0);
+    }
+
+    @keyframes bloom {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .petal {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      opacity: 0.95;
+      filter: blur(0.3px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    .petal:nth-child(1) {
+      background: #ff5ea8;
+      transform: translateY(-60px);
+    }
+
+    .petal:nth-child(2) {
+      background: #ff8dc7;
+      transform: translateX(60px);
+    }
+
+    .petal:nth-child(3) {
+      background: #ffb3d9;
+      transform: translateY(60px);
+    }
+
+    .petal:nth-child(4) {
+      background: #d291ff;
+      transform: translateX(-60px);
+    }
+
+    .center {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff6a9, #ffca3a);
+      z-index: 5;
+      box-shadow: 0 0 35px #fff1a8;
+    }
+
+    .intro-text {
+      text-align: center;
+      font-size: 1.5rem;
+      line-height: 1.7;
+      text-shadow: 0 0 15px rgba(255,255,255,0.8);
+      animation: fadeIn 3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      width: min(90%, 500px);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 30px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .card h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    #yesBtn {
+      background: linear-gradient(45deg, #ff4da6, #ff80bf);
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff4da6;
+      position: relative;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1rem;
+      min-height: 30px;
+    }
+
+    .birthday-title {
+      font-family: 'Sacramento', cursive;
+      font-size: clamp(3rem, 10vw, 7rem);
+      text-align: center;
+      text-shadow: 0 0 25px rgba(255,255,255,0.8);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.03);
+      }
+    }
+
+    .birthday-sub {
+      margin-top: 20px;
+      max-width: 700px;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      background: rgba(255,255,255,0.12);
+      padding: 25px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.15);
+    }
+
+    .cake {
+      margin-top: 30px;
+      font-size: 5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hearts {
+      position: absolute;
+      color: rgba(255,255,255,0.7);
+      font-size: 20px;
+      animation: heartFloat 8s linear infinite;
+    }
+
+    @keyframes heartFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-120px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .polaroids {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .polaroid {
+      width: 150px;
+      height: 180px;
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+      color: #444;
+      transform: rotate(-4deg);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: 0.3s ease;
+    }
+
+    .polaroid:nth-child(2) {
+      transform: rotate(5deg);
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+    }
+
+    .photo {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffd6e8, #d7c3ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg,#ffb6d9,#d7c3ff,#b8f2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      transition: 1s ease;
+    }
+
+    .loading-screen.hidden-loading {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-flower {
+      font-size: 5rem;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+      line-height: 2;
+    }
+
+    
+
+    .caption {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .petals {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      .birthday-sub {
+        font-size: 1rem;
+      }
+
+      .polaroid {
+        width: 120px;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader-flower">🌸</div>
+    <div class="loading-text">
+      collecting flowers... ✨<br>
+      loading happiness... 💖<br>
+      preparing surprise for deepanshi 🌷
+    </div>
+  </div>
+
+  <div id="sparkles"></div>
+  <div id="hearts"></div>
+  <div id="petals"></div>
+
+  <section class="screen" id="introScreen">
+    <div class="flower-container">
+      <div class="flower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      Hey Deepanshi 🌸 <br>
+      Someone has a little surprise for you ✨
+    </div>
+  </section>
+
+  <section class="screen hidden" id="questionScreen">
+    <div class="card">
+      <h2>Do you want to see the surprise? 🎁💖</h2>
+      <p>Choose carefully princess ✨</p>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 🙈</button>
+      </div>
+
+      <div class="message" id="message"></div>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="birthdayScreen">
+    <div class="birthday-title">
+      Happy Birthday Deepanshi 🎂✨
+    </div>
+
+    <div class="birthday-sub">
+      You make the world softer, prettier, and happier just by existing 🌸 <br><br>
+      May your smile always stay this bright, your heart this warm, and your life filled with endless beautiful moments, laughter, flowers, dreams, sparkles, and happiness 💖✨
+    </div>
+
+    <div class="cake">🎂</div>
+
+    <div class="polaroids">
+      <div class="polaroid">
+        <div class="photo">
+          <img src="Photo1.jpeg" alt="Memory 1">
+        </div>
+        <div class="caption">Pretty soul energy ✨</div>
+      </div>
+
+      <div class="polaroid">
+        <div class="photo">
+          <img src="Photo2.jpeg" alt="Memory 2">
+        </div>
+        <div class="caption">Certified cutie 💖</div>
+      </div>
+
+      <div class="polaroid">
+        <div class="photo">
+          <img src="Photo3.jpeg" alt="Memory 3">
+        </div>
+        <div class="caption">Main character vibes 🌷</div>
+      </div>
+    </div>
+
+    <div class="birthday-sub" style="margin-top:25px; font-style:italic;">
+      “kisi ka toh hona hi tha aapko, <br>
+      kyu na mai hi le lun aapko” 🎶💖
+    </div>
+
+    <div class="birthday-sub" style="margin-top:25px;">
+      <strong>Things that make you YOU 🌸</strong><br><br>
+      The way you sketch little things with so much detail 🎨<br>
+      The way you secretly care even when you act savage 💅<br>
+      The cricket obsession 😭🏏<br>
+      Your chaotic-funny energy mixed with the softest heart 💖
+    </div>
+
+    <div class="birthday-sub" style="margin-top:25px;">
+      <strong>Totally Real Chat Leak 💬</strong><br><br>
+      You: stop being dramatic 😭<br>
+      Me: impossible when it's your birthday 💖<br>
+      You: this is too much<br>
+      Me: not enough actually ✨
+    </div>
+
+    <div class="birthday-sub" style="margin-top:25px;">
+      <strong>A tiny letter for you 💌</strong><br><br>
+      No matter how chaotic life gets,
+      I genuinely hope you always stay this happy, creative, pretty, and full of light 🌸
+      You deserve soft moments, loud laughter, late-night talks, flowers, music, and every beautiful thing in the world ✨
+    </div>
+  </section>
+
+  <script>
+    const introScreen = document.getElementById('introScreen');
+    const questionScreen = document.getElementById('questionScreen');
+    const birthdayScreen = document.getElementById('birthdayScreen');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('message');
+
+    const funnyMessages = [
+      'Oopsie 🌸 Wrong answer',
+      'The universe says you must press yes 💖',
+      'Error 404: No option unavailable ✨',
+      'Nice try princess 👀',
+      'This button is shy 🥺',
+      'Nope nope nope 💅',
+      'Destiny already chose YES 🌷'
+    ];
+
+    setTimeout(() => {
+      introScreen.classList.add('hidden');
+      questionScreen.classList.remove('hidden');
+    }, 5000);
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 250 - 125;
+      const y = Math.random() * 180 - 90;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      message.innerText = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    });
+
+    noBtn.addEventListener('click', () => {
+      message.innerText = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    });
+
+    yesBtn.addEventListener('click', () => {
+      questionScreen.classList.add('hidden');
+      birthdayScreen.classList.remove('hidden');
+
+      createBurst();
+    });
+
+    function createSparkles() {
+      const container = document.getElementById('sparkles');
+
+      for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = (4 + Math.random() * 5) + 's';
+        sparkle.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(sparkle);
+      }
+    }
+
+    function createHearts() {
+      const container = document.getElementById('hearts');
+
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('hearts');
+        heart.innerText = ['💖','🌸','✨','🎀'][Math.floor(Math.random()*4)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (18 + Math.random() * 20) + 'px';
+        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+
+        container.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 10000);
+
+      }, 400);
+    }
+
+    function createPetals() {
+      const container = document.getElementById('petals');
+
+      setInterval(() => {
+        const petal = document.createElement('div');
+        petal.classList.add('petals');
+        petal.innerText = '🌸';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (5 + Math.random() * 5) + 's';
+
+        container.appendChild(petal);
+
+        setTimeout(() => {
+          petal.remove();
+        }, 10000);
+      }, 300);
+    }
+
+    function createBurst() {
+      for(let i = 0; i < 80; i++) {
+        const burst = document.createElement('div');
+        burst.classList.add('hearts');
+        burst.innerText = ['💖','✨','🌸','🎉'][Math.floor(Math.random()*4)];
+        burst.style.left = Math.random() * 100 + 'vw';
+        burst.style.top = Math.random() * 100 + 'vh';
+        burst.style.animationDuration = '4s';
+
+        document.body.appendChild(burst);
+
+        setTimeout(() => {
+          burst.remove();
+        }, 4000);
+      }
+    }
+
+    createSparkles();
+    createHearts();
+    createPetals();
+
+    setTimeout(() => {
+      document.getElementById('loadingScreen').classList.add('hidden-loading');
+    }, 3500);
+
+    
+  </script>
+</body>
+</html>
